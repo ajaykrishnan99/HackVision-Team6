@@ -71,6 +71,7 @@ class Zoom:
                           "start_time": self._start_time,
                           "duration": self._duration,
                           "timezone": self._timezone,
+                          "default_password": "true",
                           "agenda": self._agenda,
                           "settings": {"host_video": "true",
                                        "participant_video": "true",
