@@ -90,7 +90,44 @@
   </header><!-- End Header -->
 
   <br><br><br>
-  <h1>MENTEEE</h1>
+  <div class="container">
+    <br><br><br>
+    <h1>MENTEEE</h1>
+    <h3>My Bookingss</h3>
+    {%for r in menteeDetails%}
+    <div class="card col-md-4">
+    <div class="container">
+    <p>Mail:{{r[1]}}</p>
+    <p><a href="{{r[3]}}">Meeting Link</a></p>
+    <p>Email of Mentor: {{r[5]}}</p>
+    <p>Duration: {{r[8]}}</p>
+
+   
+    {%endfor%}
+    </div></div>
+    <h3>Mentors Available</h3>
+        {%for r in results%}
+        <div class="card col-md-4">
+        <div class="container">
+        <p>Mail:{{r[0]}}</p>
+        <p>Full Name: {{r[1]}}</p>
+        <p>Description: {{r[2]}}</p>
+        <p>Rating: {{r[3]}}</p>
+        <p>Qualification: {{r[4]}}</p>
+        <p>Subject: {{r[5]}}</p>
+        
+        <form action="/booking" method = "POST">
+          <input type="text" name="mail_mentee" value="{{r[0]}}" hidden>
+          <input type="text" name="name_mentee" value="{{r[1]}}" hidden>
+          <input type="text" name="subject_mentee" value="{{r[5]}}" hidden>
+          <button class="btn-success" type="submit"  value = "Submit" >Book Appointment</button>
+      </form>
+      </div>
+      </div><br>
+        {%endfor%}
+  </div>
+ 
+
   </main><!-- End #main -->
 
   

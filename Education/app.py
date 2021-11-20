@@ -100,10 +100,35 @@ def registerUser():
     return render_template('RegisteredSuccess.html')
 
 
+
+
+@app.route('/booking', methods=['POST', 'GET'])
+def booking():
+    if request.method == 'POST':
+        mail_mentee = request.form['mail_mentee']
+        name_mentee = request.form['name_mentee']
+        subject_mentee = request.form['subject_mentee']
+        list1=[mail_mentee,name_mentee,subject_mentee]
+        return render_template('booking.html',list1=list1)
+
+
+
+
+@app.route('/bookSession', methods=['POST', 'GET'])
+def bookSession():
+    if request.method == 'POST':
+        mentee_mail = request.form['mentee_mail']
+        mentee_duration = request.form['mentee_duration']
+        mentee_time = request.form['mentee_time']
+
+
+
+
+
+        
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    
-    
     if request.method == 'POST':
         ida = request.form['id']
         password = request.form['password']
@@ -111,13 +136,18 @@ def login():
 
         if user_type == 'user':
             if 'username' in session:
-                results1=''
+               
                 cursor = mysql.connection.cursor()
-                sql = "SELECT * from booking"
+                sql = "SELECT * from educator"
                 cursor.execute(sql)
-                results1 = cursor.fetchall()
+                results2 = cursor.fetchall()
+
+                sql = "SELECT * from booking where m_email='"+ida+"'"
+                cursor.execute(sql)
+                menteeDetails = cursor.fetchall()
+
                 cursor.close()
-                return render_template('mentee.html',results=results1)
+                return render_template('mentee.html',results=results2,menteeDetails=menteeDetails)
         # return render_template('mentee.html')
             cursor = mysql.connection.cursor()
             sql = "SELECT * FROM auth where id='"+ida + \
@@ -127,8 +157,18 @@ def login():
             if results:
                 session['username'] = request.form['id']
                 # cursor = mysql.connection.cursor()
+                cursor = mysql.connection.cursor()
+                sql = "SELECT e.email,e.full_name,e.description,e.rating,eq.qualification,s.subject_name from  educator e,educator_qualification eq,subjects s  where e.email=eq.email and s.email=e.email"
+                cursor.execute(sql)
+                results2 = cursor.fetchall()
+                sql = "SELECT * from booking where m_email='"+ida+"'"
+                cursor.execute(sql)
+                menteeDetails = cursor.fetchall()
                 
-                return render_template('mentee.html')
+
+                cursor.close()
+                return render_template('mentee.html',results=results2,menteeDetails=menteeDetails)
+              
             else:
                 return render_template('signin.html')
 
