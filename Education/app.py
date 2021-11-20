@@ -124,15 +124,15 @@ def booking():
 def bookSession():
     if request.method == 'POST':
         # mentee_mail = request.form['mentee_mail']
-        mentee_subject = request.form['mentee_subject']
-        mentee_duration = request.form['mentee_duration']
-        mentee_time = request.form['mentee_time']
+        # mentee_subject = request.form['mentee_subject']
+        # mentee_duration = request.form['mentee_duration']
+        # mentee_time = request.form['mentee_time']
         mentee_student_email = request.form['mentee_student_email']
         # formatedDate=mentee_time.strftime("%Y-%m-%dT%H:%M:%S")
         #------------------------------------------------------------------------------------------------------------------
-        zoom=Zoom(mentee_subject, mentee_time, mentee_duration, 'Australia/Sydney', "MEET")
-        zoom.createMeeting()
-        url=zoom.meetingURL
+        # zoom=Zoom(mentee_subject, mentee_time, mentee_duration, 'Australia/Sydney', "MEET")
+        # zoom.createMeeting()
+        # url=zoom.meetingURL
 
 
 
@@ -144,14 +144,16 @@ def bookSession():
         sender_email = "edutorMail@gmail.com"  # Enter your address
         receiver_email = mentee_student_email  # Enter receiver address
         password = 'edutorMail@01'
+        meeting_link="https://us04web.zoom.us/j/72130171027?pwd=S1hGT1ZuT2NieExUVmkwSlJQVjcxdz09"
         message = """
         Subject: Edutor
 
-        Please Find attached Invite"""
+        Please Find attached Invite\n"""+meeting_link
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message)
+        return render_template('signin.html')
 
 
 
