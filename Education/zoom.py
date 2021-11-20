@@ -1,4 +1,4 @@
-import jwt
+
 import requests
 import json
 from time import time

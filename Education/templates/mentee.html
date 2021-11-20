@@ -29,7 +29,14 @@
   <link href="../static/css/style.css" rel="stylesheet">
 
   <style>
-    
+    .whitebox{
+     
+      width: 800px;
+      padding:auto;
+      margin: auto;
+      align-items:center;
+      align-self: center;
+    }
     .ftype{text-align:justify;}
   </style>
 
@@ -54,6 +61,7 @@
 
 <body>
     
+  
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
@@ -75,7 +83,7 @@
           <li><a class="active" href="/">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/collaboration">Collaborations</a></li>
-          <li><a href="/trainers">Facilitators</a></li>
+          <!-- <li><a href="/trainers">Facilitators</a></li> -->
           <li><a href="/courses">Courses</a></li>
          
           
@@ -90,10 +98,12 @@
   </header><!-- End Header -->
 
   <br><br><br>
-  <div class="container">
+  
+  <div class="whitebox">
+    <center>
     <br><br><br>
-    <h1>MENTEEE</h1>
-    <h3>My Bookingss</h3>
+    <h1>MENTEEE</h1><br>
+    <h3>My Bookings</h3>
     {%for r in menteeDetails%}
     <div class="card col-md-4">
     <div class="container">
@@ -104,11 +114,11 @@
 
    
     {%endfor%}
-    </div></div>
-    <h3>Mentors Available</h3>
+    </div></div><br> <br> <br><br>
+    <h3>Mentors Available</h3><br><br>
         {%for r in results%}
-        <div class="card col-md-4">
-        <div class="container">
+        <div class="card col-md-6">
+        <div class="container"><br>
         <p>Mail:{{r[0]}}</p>
         <p>Full Name: {{r[1]}}</p>
         <p>Description: {{r[2]}}</p>
@@ -121,16 +131,17 @@
           <input type="text" name="name_mentee" value="{{r[1]}}" hidden>
           <input type="text" name="subject_mentee" value="{{r[5]}}" hidden>
           <button class="btn-success" type="submit"  value = "Submit" >Book Appointment</button>
-      </form>
+      </form><br>
       </div>
       </div><br>
         {%endfor%}
+      </center>
   </div>
  
 
-  </main><!-- End #main -->
+ <!-- End #main -->
 
-  
+
   <!-- ======= Footer ======= -->
   <footer id="footer">
 

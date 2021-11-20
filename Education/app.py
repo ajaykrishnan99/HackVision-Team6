@@ -5,6 +5,12 @@ import os
 from datetime import datetime
 from flask_mysqldb import MySQL
 
+import requests
+import json
+from zoom import Zoom
+from time import time
+
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(16)
@@ -66,7 +72,7 @@ def register():
     else:
         pass
 
-    return render_template('RegisteredSuccess.html')
+    return render_template('signin.html')
 
 
 
@@ -97,7 +103,9 @@ def registerUser():
     else:
         pass
 
-    return render_template('RegisteredSuccess.html')
+    # return render_template('RegisteredSuccess.html')
+    return render_template('signin.html')
+
 
 
 
@@ -112,14 +120,38 @@ def booking():
         return render_template('booking.html',list1=list1)
 
 
-
-
 @app.route('/bookSession', methods=['POST', 'GET'])
 def bookSession():
     if request.method == 'POST':
-        mentee_mail = request.form['mentee_mail']
+        # mentee_mail = request.form['mentee_mail']
+        mentee_subject = request.form['mentee_subject']
         mentee_duration = request.form['mentee_duration']
         mentee_time = request.form['mentee_time']
+        mentee_student_email = request.form['mentee_student_email']
+        # formatedDate=mentee_time.strftime("%Y-%m-%dT%H:%M:%S")
+        #------------------------------------------------------------------------------------------------------------------
+        zoom=Zoom(mentee_subject, mentee_time, mentee_duration, 'Australia/Sydney', "MEET")
+        zoom.createMeeting()
+        url=zoom.meetingURL
+
+
+
+        #------------------------------------------------------------------------------------------------------------------
+        import smtplib, ssl
+
+        port = 465  # For SSL
+        smtp_server = "smtp.gmail.com"
+        sender_email = "edutorMail@gmail.com"  # Enter your address
+        receiver_email = mentee_student_email  # Enter receiver address
+        password = 'edutorMail@01'
+        message = """
+        Subject: Edutor
+
+        Please Find attached Invite"""
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
 
 
 
