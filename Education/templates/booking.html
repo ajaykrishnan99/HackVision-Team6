@@ -1,0 +1,34 @@
+<div class="container">
+    <br><br><br>
+    <h1>MENTEEE</h1>
+    <h3>My Bookingss</h3>
+    <form action="/bookSession" method = "POST">
+        <!-- Mail:<input type="text" value="{{mail_mentee}}" name="mentee_mail" disabled>
+        Name:<input type="text" value="{{name_mentee}}" name="mentee_name" disabled>
+        Subject:<input type="text" value="{{subject_mentee}}" name="mentee_subject" disabled>
+        StartTime:<input type="datetime" name="mentee_time">
+        Duration: <input type="number" name="mentee_duration">
+        Student Email: <input type="email" name="mentee_email"> -->
+
+        Mail:<input type="text" value="{{list1[0]}}" name="mentee_mail" disabled> <br>
+        Name:<input type="text" value="{{list1[1]}}" name="mentee_name" disabled><br>
+        Subject:<input type="text" value="{{list1[2]}}" name="mentee_subject" disabled><br>
+        StartTime:<input type="datetime" name="mentee_time"><br>
+        Duration: <input type="number" name="mentee_duration"><br>
+        Student Email: <input type="email" name="mentee_email"><br>
+        <button class="btn-success" type="submit"  value = "Submit" >Submit</button>
+
+        
+    </form>
+
+    {%for r in menteeDetails%}
+    <div class="card col-md-4">
+    <div class="container">
+    <p>Mail:{{r[1]}}</p>
+    <p><a href="{{r[3]}}">Meeting Link</a></p>
+    <p>Email of Mentor: {{r[5]}}</p>
+    <p>Duration: {{r[8]}}</p>
+
+   
+    {%endfor%}
+    </div></div>
